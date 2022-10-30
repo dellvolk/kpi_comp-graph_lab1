@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Suspense} from 'react';
+import styled from 'styled-components';
+// import Menu from './components/Menu';
+import './styles/bootstrap.css'
+import './styles/global.css'
+import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Menu = React.lazy(() => import('./components/Menu'));
+
+class App extends React.Component {
+    // width={1500} height={900}
+
+
+    render() {
+        return (
+            <StyledApp className="">
+                <div className="stage">
+                    <div>
+                        <canvas id="stage"/>
+                    </div>
+                </div>
+                <Suspense>
+                    <Menu
+
+                    />
+                </Suspense>
+            </StyledApp>
+        )
+    }
 }
+
+const StyledApp = styled.div`
+  display: flex;
+  height: 100vh;
+
+  .stage {
+    padding: 10px;
+    max-width: calc(100% - 350px);
+    flex: 1;
+
+    & > div {
+      max-height: 100%;
+      max-width: 100%;
+      overflow: auto;
+      border: 1px solid #ccc;
+
+      & > canvas {
+        background-color: #fff;
+      }
+    }
+  }
+`
 
 export default App;

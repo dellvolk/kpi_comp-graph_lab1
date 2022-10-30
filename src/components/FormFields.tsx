@@ -1,29 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Form, InputNumber} from "antd";
+import {Form, InputNumber, Slider} from "antd";
 
 interface IOptions {
     value: number
     label: string
     key: string
     col?: number
+    slider?: any
 }
 
-interface INumberFieldsProps {
+interface IFormFieldsProps {
     options: IOptions[]
 }
 
-const NumberFields = ({options}: INumberFieldsProps) => {
+const FormFields = ({options}: IFormFieldsProps) => {
     return (
         <NumberFieldsStyled className="row">
-            {options.map(({label, value, key, col}, idx) =>
+            {options.map(({label, value, key, col, slider}, idx) =>
                 <div key={key} className={`col-${col || 6}`}>
                     <Form.Item
                         name={key}
                         label={label}
                         initialValue={value}
                     >
-                        <InputNumber />
+                        {slider ? <Slider {...slider}/> : <InputNumber />}
                     </Form.Item>
                 </div>
             )}
@@ -34,4 +35,4 @@ const NumberFields = ({options}: INumberFieldsProps) => {
 const NumberFieldsStyled = styled.div`
 `
 
-export default (NumberFields);
+export default (FormFields);
